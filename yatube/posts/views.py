@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect 
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Group, User
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.conf import settings
+
 
 def index(request):
     post_list = Post.objects.all()
@@ -49,13 +50,14 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     posts = get_object_or_404(Post, pk=post_id)
-    post_number = Post.objects.select_related('author').filter(author=posts.author).count()
+    post_number = Post.objects.select_related('author').filter(
+        author=posts.author).count()
     context = {
         'posts': posts,
         'post_number': post_number,
 
     }
-    return render(request, 'posts/post_detail.html', context) 
+    return render(request, 'posts/post_detail.html', context)
 
 
 @login_required
