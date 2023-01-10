@@ -35,15 +35,13 @@ def group_posts(request, slug):
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    post_list = Post.objects.filter(author=author)
-    paginator = Paginator(post_list, settings.MAX_RECORDS)
+    posts = author.posts.all()
+    paginator = Paginator(posts, settings.MAX_RECORDS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    number_of_post = post_list.count()
     context = {
-        'post_list': post_list,
+        'posts': posts,
         'page_obj': page_obj,
-        'post_number': number_of_post,
         'author': author,
     }
     return render(request, 'posts/profile.html', context)
