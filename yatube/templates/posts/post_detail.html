@@ -1,54 +1,54 @@
 {% extends "base.html" %}
 {% block title %}
-    Пост {{ posts|truncatechars:30 }}
+  Пост {{ posts|truncatechars:30 }}
 {% endblock %}
 {% block content %}
-    <div class="container py-5">
-        <div class="row">
-            <aside class="col-12 col-md-2">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <center>
-                            <b>Дата публикации:</b>
-                        </center>
-                        <center>
-                            {{ posts.pub_date|date:"d E Y" }}
-                        </center>
-                    </li>
-                    {% if posts.group %}
-                        <li class="list-group-item">
-                            <center>
-                                <b>Группа: </b>
-                                {{ posts.group.title }}
-                                <a href="{% url 'posts:group_list' posts.group.slug %}"><center>Все записи группы</center></a>
-                            </center>
-                    {% endif %}
-                </li>
-                <li class="list-group-item">
-                    <center>
-                        <b>Автор: </b>
-                    </center>
-                    <center>
-                        {{ posts.author.get_full_name }}:
-                        {{ posts.author.username }}
-                    </center>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <center>
-                        <b>Всего постов автора: {{ posts_count }}</b>
-                    </center>
-                    {{ post_number }}
-                </li>
-                <center>
-                    <li class="list-group-item">
-                        <a href="{% url 'posts:profile' posts.author.username %}">Все посты пользователя</a>
-                    </center>
-                </li>
-            </ul>
-        </aside>
-        <article class="col-12 col-md-8">
-            <p>{{ posts.text }}</p>
-        </article>
-    </div>
-    </div>
+  <div class="container py-5">
+    <div class="row">
+      <aside class="col-12 col-md-2">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <center>
+              <b>Дата публикации:</b>
+            </center>
+            <center>
+              {{ posts.pub_date|date:"d E Y" }}
+            </center>
+          </li>
+          {% if posts.group %}
+            <li class="list-group-item">
+              <center>
+                <b>Группа: </b>
+                {{ posts.group.title }}
+                <a href="{% url 'posts:group_list' posts.group.slug %}"><center>Все записи группы</center></a>
+              </center>
+          {% endif %}
+        </li>
+        <li class="list-group-item">
+          <center>
+            <b>Автор: </b>
+          </center>
+          <center>
+            {{ posts.author.get_full_name }}:
+            {{ posts.author.username }}
+          </center>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <center>
+            <b>Всего постов автора: {{ posts_count }}</b>
+          </center>
+          {{ post_number }}
+        </li>
+        <center>
+          <li class="list-group-item">
+            <a href="{% url 'posts:profile' posts.author.username %}">Все посты пользователя</a>
+          </center>
+        </li>
+      </ul>
+    </aside>
+    <article class="col-12 col-md-8">
+      <p>{{ posts.text }}</p>
+    </article>
+  </div>
+  </div>
 {% endblock %}
