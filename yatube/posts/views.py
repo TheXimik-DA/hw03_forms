@@ -7,11 +7,15 @@ from posts.forms import PostForm
 from posts.models import Group, Post, User
 
 
+def paginator_function(posts, request):
+    paginator = Paginator(posts, settings.MAX_RECORDS)
+    page_number = request.GET.get("page")
+    return paginator.get_page(page_number)
+
+
 def index(request):
-    post_list = Post.objects.all()
-    paginator = Paginator(post_list, settings.MAX_RECORDS)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    posts = Post.objects.all()
+    page_obj = paginator_function(posts, request)
     context = {
         'page_obj': page_obj,
     }
@@ -23,9 +27,7 @@ def group_posts(request, slug):
     template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
     posts = group.posts.select_related('author')
-    paginator = Paginator(posts, settings.MAX_RECORDS)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator_function(posts, request)
     context = {
         'group': group,
         'page_obj': page_obj,
@@ -36,9 +38,7 @@ def group_posts(request, slug):
 def profile(request, username):
     author = get_object_or_404(User, username=username)
     posts = author.posts.all()
-    paginator = Paginator(posts, settings.MAX_RECORDS)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator_function(posts, request)
     context = {
         'posts': posts,
         'page_obj': page_obj,
@@ -49,14 +49,12 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     posts = get_object_or_404(Post, pk=post_id)
-    post_number = Post.objects.select_related('author').filter(
-        author=posts.author).count()
     context = {
-        'posts': posts,
-        'post_number': post_number,
-
+        "posts": posts,
+        "author": posts.author,
+        "posts_count": posts.author.posts.count(),
     }
-    return render(request, 'posts/post_detail.html', context)
+    return render(request, "posts/post_detail.html", context)
 
 
 @login_required
