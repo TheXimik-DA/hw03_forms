@@ -35,7 +35,8 @@
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <center>
-            <b>Всего постов автора: {{ posts_count }}</b>
+            <b>Всего постов автора:
+              {{ posts.author.posts.count }}</b>
           </center>
           {{ post_number }}
         </li>
@@ -48,6 +49,11 @@
     </aside>
     <article class="col-12 col-md-8">
       <p>{{ posts.text }}</p>
+      {% if post.author == request.user %}
+        <a class="btn btn-primary" href="{% url 'posts:post_edit' post.id %}">
+          Редактировать запись
+        </a>
+      {% endif %}
     </article>
   </div>
   </div>

@@ -2,7 +2,6 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-
 from posts.forms import PostForm
 from posts.models import Group, Post, User
 
@@ -40,7 +39,6 @@ def profile(request, username):
     posts = author.posts.all()
     page_obj = paginator_function(posts, request)
     context = {
-        'posts': posts,
         'page_obj': page_obj,
         'author': author,
     }
@@ -48,11 +46,10 @@ def profile(request, username):
 
 
 def post_detail(request, post_id):
-    posts = get_object_or_404(Post, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     context = {
-        "posts": posts,
-        "author": posts.author,
-        "posts_count": posts.author.posts.count(),
+        "posts": post,
+        "author": post.author,
     }
     return render(request, "posts/post_detail.html", context)
 
@@ -65,7 +62,7 @@ def post_create(request):
         obj = form.save(commit=False)
         obj.author = request.user
         obj.save()
-        return redirect('posts:profile', request.user)
+        return redirect('posts:profile', obj.author)
     context = {
         'form': form,
         'is_edit': False}
@@ -74,7 +71,7 @@ def post_create(request):
 
 @login_required
 def post_edit(request, post_id):
-    edit_post = get_object_or_404(Post, id=post_id)
+    edit_post = get_object_or_404(Post, pk=post_id)
     if request.user != edit_post.author:
         return redirect('posts:post_detail', post_id)
     form = PostForm(request.POST or None, instance=edit_post)
