@@ -1,14 +1,16 @@
 from django.urls import path
 
-from . import views
-
+from posts.views import (
+    group_posts, index, post_create,
+    post_detail, post_edit, profile,
+)
 app_name = 'posts'
 
 urlpatterns = [
-    path('posts/<int:post_id>/edit/', views.post_edit, name='post_edit'),
-    path('create/', views.post_create, name='post_create'),
-    path('', views.index, name='index'),
-    path('group/<slug:slug>/', views.group_posts, name='group_list'),
-    path('profile/<str:username>/', views.profile, name='profile'),
-    path('posts/<int:post_id>/', views.post_detail, name='post_detail'),
+    path('posts/<int:post_id>/edit/', post_edit, name='post_edit'),
+    path('create/', post_create, name='post_create'),
+    path('', index, name='index'),
+    path('group/<slug:slug>/', group_posts, name='group_list'),
+    path('profile/<str:username>/', profile, name='profile'),
+    path('posts/<int:post_id>/', post_detail, name='post_detail'),
 ]
