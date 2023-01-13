@@ -7,7 +7,6 @@
     <article>
       {% for post in page_obj %}
         {% include 'posts/includes/post.html' %}
-        <p> {{ post.text|linebreaksbr }} </p>
         {% if not forloop.last %}<hr>{% endif %}
       {% empty %}
         <h3>Отсутствуют записи. Поделитесь чем-нибудь!</h3>
