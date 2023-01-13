@@ -1,18 +1,18 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %}
   {% if author.get_full_name %}
     {{ author.get_full_name }}
   {% else %}
-    {{ author }}
-  {% endif %} <b>Профиль  пользователя</b>
-{% endblock %}
+    {{ author }}:
+  {% endif %} Профиль  пользователя
+{% endblock title %}
 {% block content %}
   <div class="container py-5">
     <h1>Все посты пользователя
       {% if author.get_full_name %}{{ author.get_full_name }}
       {% else %}{{ author }}{% endif %}
     </h1>
-    <h3><b>Всего постов:</b>
+    <h3>Всего постов:
       {{ page_obj.paginator.count }}
     </h3>
     {% for post in page_obj %}
@@ -30,7 +30,7 @@
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
     <div class="d-flex justify-content-center">
-      <div>{% include 'posts/includes/paginator.html' %}</div>
+      <div>{% include "posts/includes/paginator.html" %}</div>
     </div>
   </div>
-{% endblock %}
+{% endblock content %}

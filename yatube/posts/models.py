@@ -8,11 +8,11 @@ User = get_user_model()
 class Group(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-    description = models.TextField()
+    description = models.TextField(verbose_name='описание')
 
     class Meta:
-        verbose_name = 'Пост'
-        verbose_name_plural = 'Посты'
+        verbose_name = 'пост'
+        verbose_name_plural = 'посты'
 
     def __str__(self) -> str:
         return self.title
@@ -36,8 +36,8 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-pub_date']
-        verbose_name = 'Группа'
-        verbose_name_plural = 'Группы'
+        verbose_name = 'группа'
+        verbose_name_plural = 'группы'
 
     def __str__(self) -> str:
         return self.text

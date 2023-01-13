@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% block title %} Последние обновления на сайте{% endblock %}
+{% block title %} Последние обновления на сайте{% endblock title %}
 {% block content %}
   <div class="container py-5">
     <center><h2>Последние обновления на сайте. </h2></center>
     {% for post in page_obj %}
       <article>
-        {% include 'posts/includes/post.html' %}
+        {% include "posts/includes/post.html" %}
         {% if post.group %}
           <b>Группа:</b> {{ group.title }}
           <a href="{% url 'posts:group_list' post.group.slug %}">Все записи группы. </a>
@@ -15,6 +15,6 @@
       <h3>Отсутствуют записи. Поделитесь чем-нибудь!</h3>
       </article>
     {% endfor %}
-    {% include 'posts/includes/paginator.html' %}
+    {% include "posts/includes/paginator.html" %}
   </div>
-{% endblock %}
+{% endblock content %}
