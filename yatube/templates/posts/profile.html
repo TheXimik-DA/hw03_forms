@@ -22,10 +22,10 @@
         </li>
       </ul>
       <p>{{ post.text }}</p>
-      <a href="{% url 'posts:post_detail' post.id %}">Подробная информация</a>
+      <a href="{% url 'posts:post_detail' post.id %}"><span style="color:red">Подробная информация</span></a>
       <br>
       {% if post.group %}
-        <a href="{% url 'posts:group_list' post.group.slug %}">Все записи группы</a>
+        <a href="{% url 'posts:group_list' post.group.slug %}"><span style="color:red">Все записи группы</span></a>
       {% endif %}
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}

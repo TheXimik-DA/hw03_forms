@@ -2,17 +2,17 @@
   <nav aria-label="Page navigation" class="my-5">
     <ul class="pagination">
       {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page=1">Первая</a></li>
+        <li class="page-item"><a class="page-link" href="?page=1"><span style="color:red">Первая</span></a></li>
         <li class="page-item">
           <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-            Предыдущая
+            <span style="color:red">Предыдущая</span>
           </a>
         </li>
       {% endif %}
       {% for i in page_obj.paginator.page_range %}
         {% if page_obj.number == i %}
           <li class="page-item active">
-            <span class="page-link">{{ i }}</span>
+            <span style="color:red" class="page-link">{{ i }}</span>
           </li>
         {% else %}
           <li class="page-item">
@@ -23,12 +23,12 @@
       {% if page_obj.has_next %}
         <li class="page-item">
           <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-            Следующая
+            <span style="color:red">Следующая</span>
           </a>
         </li>
         <li class="page-item">
           <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
-            Последняя
+            <span style="color:red">Последняя</span>
           </a>
         </li>
       {% endif %}

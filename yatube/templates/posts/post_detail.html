@@ -20,7 +20,7 @@
               <center>
                 <b>Группа: </b>
                 {{ posts.group.title }}
-                <a href="{% url 'posts:group_list' posts.group.slug %}"><center>Все записи группы</center></a>
+                <a href="{% url 'posts:group_list' posts.group.slug %}"><center><span style="color:red">Все записи группы</span></center></a>
               </center>
           {% endif %}
         </li>
@@ -42,7 +42,7 @@
         </li>
         <center>
           <li class="list-group-item">
-            <a href="{% url 'posts:profile' posts.author.username %}">Все посты пользователя</a>
+            <a href="{% url 'posts:profile' posts.author.username %}"><span style="color:red">Все посты пользователя</span></a>
           </center>
         </li>
       </ul>

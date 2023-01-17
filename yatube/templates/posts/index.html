@@ -8,7 +8,7 @@
         {% include "posts/includes/post.html" %}
         {% if post.group %}
           <b>Группа:</b> {{ group.title }}
-          <a href="{% url 'posts:group_list' post.group.slug %}">Все записи группы. </a>
+          <a href="{% url 'posts:group_list' post.group.slug %}"><span style="color:red">Все записи группы.</span> </a>
         {% endif %}
         {% if not forloop.last %}<hr>{% endif %}
     {% empty %}
